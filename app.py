@@ -9,7 +9,7 @@ import models
 
 DEBUG = False
 PORT = int(os.environ.get('PORT', 33507))
-HOST = '0.0.0.0'
+HOST = 'https://flaskapptwoday.herokuapp.com/'
 
 app = Flask(__name__)
 app.secret_key = 'asdnafnj#46sjsnvd(*$43sfjkndkjvnskb6441531@#$$6sddf'
@@ -204,5 +204,5 @@ if __name__ == '__main__':
 		)
 	except ValueError:
 		pass
-	app.run(debug=DEBUG)
+	app.run(debug=DEBUG,host=HOST,port=PORT)
 
