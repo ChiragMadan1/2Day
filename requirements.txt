@@ -4,3 +4,4 @@ peewee
 Flask-login
 Flask-bcrypt
 Flask-wtf
+gunicorn
