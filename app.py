@@ -1,12 +1,13 @@
-from flask import (Flask, g, render_template, flash, redirect, url_for,abort,request)
+from flask import (Flask, g, render_template, flash, redirect, url_for,abort, request)
 from flask_bcrypt import check_password_hash
 from flask_login import (LoginManager, login_user, logout_user,
 							login_required, current_user)
-import os
+
 import forms
 import models
+import os
 
-DEBUG = False
+DEBUG = True
 PORT = int(os.environ.get('PORT', 33507))
 HOST = 'flaskapptwoday.herokuapp.com'
 
@@ -90,7 +91,7 @@ def post():
 	form = forms.PostForm()
 	if form.validate_on_submit():
 		models.Post.create(user = g.user.id,
-							content = form.content.data.strip())
+							content = form.content.data.strip(), likes = 0)
 		flash("Message Posted: Thanks!", "success")
 		return redirect(url_for('index'))
 	return render_template('post.html', form = form)
@@ -165,43 +166,55 @@ def unfollow(username):
 			flash("You have unfollowed {}".format(to_user.username), "success")
 	return redirect(url_for('stream', username=to_user.username))
 
+@app.route('/search', methods=['POST'])
+@login_required
+def search():
+  form = forms.SearchForm(request.form)
+  if not form.validate_on_submit():
+    return redirect(url_for('index'))
+  return redirect((url_for('search_results', query=form.search.data)))
+
+@app.route('/search_results/<query>')
+@login_required
+def search_results(query):
+  results = models.User.select()
+  return render_template('search_results.html', query=query, results=results)
+
+
+@app.route('/like/<int:post_id>')
+@login_required
+def like_post(post_id):
+	try:
+		post = models.Post.get(models.Post.id**post_id)
+	except models.DoesNotExist:
+		abort(404)
+	else:
+		try:
+			models.LikedPost.create(
+				from_user = g.user._get_current_object(),
+				to_post = post
+				)
+		except models.IntegrityError:
+			pass
+		else:
+			pass
+	return redirect(url_for('stream', stream=post))
+
+
 @app.errorhandler(404)
 def not_found(error):
 	return render_template('404.html'), 404
-
-@app.route('/', methods=['GET', 'POST'])
-def search():
-    search = request.args.get('search', None)
-    if request.method == 'POST':
-        return search_results(search)
-    return render_template('layout.html', form=search)
-
-@app.route('/results')
-def search_results(search):
-	results = []
-	search_string = search.data['search']
-
-	if search.data['search'] == '':
-		qry = models.User.get(models.User.username == "Dubey")
-		results = qry.get()
-
-	if not results:
-		flash('No results found!')
-		return redirect('/')
-	else:
-		# display results
-		return render_template('result.html', results=results)
 
 if __name__ == '__main__':
 	models.initialize()
 	try:
 		models.User.create_user(
-			username = 'chiragmadan',
+			username = 'chirag',
 			email = 'chiragmadan0103@gmail.com',
 			password = 'abcd',
 			admin = True
 		)
 	except ValueError:
 		pass
-	app.run(debug=DEBUG,host=HOST,port=PORT)
+	app.run(debug=DEBUG,host = HOST, port = PORT)
 

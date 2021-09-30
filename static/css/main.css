@@ -4,9 +4,9 @@ body, input, button, textarea {
 }
 body {
   font-size: 1em;
-  color: #777B7E;
+  color: #556169;
   font-weight: 400;
-  background: #D3D8DC;
+  background: rgb(224, 156, 131);
   position: relative;
 }
 a {
@@ -269,12 +269,12 @@ footer p {
   clear: both;
 }
 .grid-100{
-    display: inline-block;
+  display: inline-block;
   float: left;
   width: 100%;
 }
 .grid-50{
-    display: inline-block;
+  display: inline-block;
   float: left;
   width: 49%;
 }

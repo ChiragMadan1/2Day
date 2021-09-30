@@ -6,10 +6,18 @@
 			<h2>
 				<a href="{{ url_for('stream', username=post.user.username) }}">{{post.user.username}}</a>
 			</h2>
-			<i class="clock"></i><time date-time="{{ post.timestamp }}" class="disTime" datetime="{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}">{{post.timestamp.strftime('%Y-%m-%d %H:%M:%S')}}</time><a href="{{ url_for('view_post', post_id = post.id) }}" class="view"> View</a>
+			<i class="clock"></i><time date-time="{{ post.timestamp }}" class="disTime" datetime="{{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}">{{post.timestamp.strftime('%Y-%m-%d %H:%M:%S')}}</time>
+			<a href="{{ url_for('view_post', post_id = post.id) }}" class="view"> View</a>
+			<a href="{{ url_for('like_post', post_id = post.id) }}" class="view"> Like</a>
+
 			<div class="post">
 				{{ post.content }}
+				
 			</div>
+			<div class="post">
+				{{ post.likes().count() }} Likes
+			</div>
+			
 		</article>
 	{% endfor%}
 {% endblock %}
