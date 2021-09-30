@@ -1,37 +1,26 @@
-# Flask-Social-Networking
-This is a Small Social Networking website developed using Flask and Peewee. It uses Jinja-2 templating engine. 
+# 2Day Social Media
+A Social Networking website developed using Flask and Peewee that uses Jinja-2 templating engine. 
 
 #Requirements
 
-Before Starting Package needed to be installed
-
-1) pip install flask
-
-2) pip install peewee
-
-3) pip install flask-login
-
-4) pip install flask-bcrypt (It uses the blue fish cipher)
-
-5) pip install flask-wtf
-
-Python version >= 2.7
+Python version >= 3.6
 
 #Platform Specification
-Runs on Mac OSX, Windows, Linux.
-
-#Installation
-fork the github [Repository.](https://github.com/sinscary/Flask-Social-Networking.git) 
+Runs on Windows, Linux.
 
 Run following line in terminal to install dependencies
 ```bash
-  pip install -r requirements.txt
+  pip3 install -r requirements.txt
 ```
-after installing run
+Comment out the last line and uncomment the second to last line
+```
+  app.run(debug=False,host = '0.0.0.0', port = 8000)
+```
+Now, run
 ```bash
-  python app.py
+  python3 app.py
 ```
-fire up your browser and visit
+on your browser and visit
 ```http
   localhost:8000
 ```

@@ -216,5 +216,6 @@ if __name__ == '__main__':
 		)
 	except ValueError:
 		pass
+	'''app.run(debug=False,host = '0.0.0.0', port = 8000)'''
 	app.run(debug=DEBUG,host = HOST, port = PORT)
 
