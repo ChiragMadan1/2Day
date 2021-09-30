@@ -1,5 +1,6 @@
 # 2Day Social Media
 A Social Networking website developed using Flask and Peewee that uses Jinja-2 templating engine. 
+Find the deployed version on: https://flaskapptwoday.herokuapp.com/
 
 #Requirements
 
