@@ -1,4 +1,5 @@
 Flask
+bcrypt 
 peewee
 Flask-login
 Flask-bcrypt
