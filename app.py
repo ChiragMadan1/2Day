@@ -2,12 +2,13 @@ from flask import (Flask, g, render_template, flash, redirect, url_for,abort,req
 from flask_bcrypt import check_password_hash
 from flask_login import (LoginManager, login_user, logout_user,
 							login_required, current_user)
+import os
 
 import forms
 import models
 
-DEBUG = True
-PORT = 8000
+DEBUG = False
+PORT = int(os.environ.get('PORT', 33507))
 HOST = '0.0.0.0'
 
 app = Flask(__name__)
@@ -203,5 +204,5 @@ if __name__ == '__main__':
 		)
 	except ValueError:
 		pass
-	app.run(debug=DEBUG,host = HOST, port = PORT)
+	app.run(debug=DEBUG,port = PORT)
 
