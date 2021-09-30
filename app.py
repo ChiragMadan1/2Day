@@ -9,7 +9,7 @@ import models
 
 DEBUG = False
 PORT = int(os.environ.get('PORT', 33507))
-HOST = 'https://flaskapptwoday.herokuapp.com/'
+HOST = 'flaskapptwoday.herokuapp.com'
 
 app = Flask(__name__)
 app.secret_key = 'asdnafnj#46sjsnvd(*$43sfjkndkjvnskb6441531@#$$6sddf'
